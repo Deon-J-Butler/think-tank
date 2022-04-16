@@ -3,13 +3,13 @@ extends layout
 block content
     h1 #{title}
     form(method='POST', action='/article/add')
-        #form-group
+        #form-title
             label Title:
             input.form-control(name='title', type='text')
-        #form-group
+        #form-author
             label Author:
             input.form-control(name='author', type='text')
-        #form-group
+        #form-body
             label Body:
             textarea.form-control(name='body')
         input.btn.btn-primary(type='submit', value='Submit')

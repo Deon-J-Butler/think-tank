@@ -3,26 +3,13 @@ const path = require('path');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser')
 
-mongoose.connect('mongodb://127.0.0.1/demo-express', function(err, db){
+mongoose.connect('mongodb://127.0.0.1/demo-express', function(err){
     if (err) {
         console.log('Unable to connect to server. Please check server connection. Error:', err);
     } else {
         console.log('Connected to MongoDB');
     }
 });
-
-/*let db = mongoose.connection;
-
-
-// Check connection
-db.once('open', function(){
-    console.log('Connected to MongoDB');
-})
-
-// Check for db errors
-db.on('error', function(err){
-    console.log(err);
-})*/
 
 // Init App
 const app = express();
@@ -36,9 +23,12 @@ app.set('view engine', 'pug');
 
 // Body Parser
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false}))
+app.use(bodyParser.urlencoded({ extended: false}));
 //parse application/json
-app.use(bodyParser.json())
+app.use(bodyParser.json());
+
+// Set Public folder
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Home Route
 app.get('/', function(req, res){
@@ -54,6 +44,15 @@ app.get('/', function(req, res){
     });
 });
 
+
+// Get Single Article
+app.get('/article/:id', function(req, res){
+    Article.findById(req.params.id, function(err, article){
+        res.render('article', {
+            article:article
+        });
+    });
+});
 
 // Add Route
 app.get('/article/add', function(req, res){
