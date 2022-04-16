@@ -5,21 +5,27 @@ html
         link(rel='stylesheet' href='/bower_components/bootstrap/dist/css/bootstrap.css')
         link(rel='stylesheet' href='/css/styles.css')
     body
-        nav.navbar.navbar-expand-md.navbar-dark.bg-dark
+        nav.navbar.navbar-expand.bg-dark
             .container-fluid
-                a.navbar-brand(href='/') Demo-Express
-                button.navbar-toggler(type='button' data-bs-toggle='collapse' data-bs-target='#navbarCollapse'
-                    aria-controls='navbarCollapse' aria-expanded='false' aria-label='Toggle navigation')
-                    span.navbar-toggler-icon
+                .navbar-header
+                    button.navbar-toggler(type='button' data-bs-toggle='collapse' data-bs-target='#navbarCollapse' aria-controls='navbarCollapse' aria-expanded='false' aria-label='Toggle navigation')
+                        span.sr-only Toggle navigation
+                        span.icon-bar
+                        span.icon-bar
+                        span.icon-bar
+                    a.navbar-brand(href='/') Demo-Express
                 #navbarCollapse.collapse.navbar-collapse
                     ul.navbar-nav.me-auto.mb-2.mb-md-0
                         li.nav-item
-                            a.nav-link(aria-current='page' href='/') Home
+                            a.nav-link(href='/') Home
                         li.nav-item
-                            a.nav-link(href='/article/add') Add Article
+                            a.nav-link(href='/articles/add') Add Article
                         li.nav-item
-                            a.nav-link.disabled Disabled
+                            a.nav-link.disabled Under Construction
         .container
+            != messages('message', locals)
+            if errors
+                div(class="alert alert-danger")= "Please make sure to enter information into each field"
             block content
             br
             hr

@@ -3,6 +3,7 @@
   <head>
     <title>Demo-Express</title>
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/styles.css">
   </head>
   <body>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
@@ -14,15 +15,14 @@
             <li class="nav-item"><a class="nav-link" href="/article/add">Add Article</a></li>
             <li class="nav-item"><a class="nav-link disabled">Disabled</a></li>
           </ul>
-          <form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-          </form>
         </div>
       </div>
     </nav>
     <div class="container">
-      <h1>= article.title</h1><br>
+      <h1>article.title</h1>
+      <h5>Written by article.author</h5><br>
+      <p>article.body</p>
+      <hr><a class="btn btn-secondary" href="/article/edit/article._id">Edit</a><a class="btn btn-danger delete-article" href="#" data-id="article._id">Delete</a><br>
       <hr>
       <footer>
         <p>Copyright &copy; 2022</p>
@@ -30,5 +30,6 @@
     </div>
     <script src="/bower_components/jquery/dist/jquery.js"></script>
     <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="/js/main.js"></script>
   </body>
 </html>

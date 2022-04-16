@@ -4,9 +4,9 @@ $(document).ready(function(){
         const id = $target.attr('data-id');
         $.ajax({
             type:'DELETE',
-            url: '/article/'+id,
+            url: '/articles/'+id,
             success: function(){
-                alert('Article Deleted. Returning to Home...');
+                confirm('You selected to delete this article.');
                 window.location.href='/';
             },
             error: function(err){
