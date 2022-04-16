@@ -6,9 +6,10 @@
   "scripts": {
     "start": "node app.js"
   },
-  "author": "",
+  "author": "Deon Butler",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.20.0",
     "express": "^4.17.3",
     "mongoose": "^6.3.0",
     "pug": "^3.0.2"
