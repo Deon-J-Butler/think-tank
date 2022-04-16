@@ -6,25 +6,25 @@ const router = express.Router();
 
 
 // Add article route (GET)
-router.get('/articles/add', function(req, res){
+router.get('/add', function(req, res){
     res.render('add_article', {
         title: 'Add Article'
     });
 });
 
 // Add article route (POST)
-router.post('/articles/add', [
+router.post('/add', [
     check('title', 'Title must not be empty').notEmpty(),
     check('author', 'Author must not be empty').notEmpty(),
     check('body', 'Body must not be empty').notEmpty(),
 ], (req, res) => {
 
     //Get errors
-    const errors = validationResult(req);
-    if(errors) {
+    let errors = validationResult(req);
+    if(!errors.isEmpty()) {
         res.render('add_article', {
             title: 'Add Article',
-            errors: errors
+            errors: errors.errors
         });
     } else {
         let article = new Article();
@@ -89,7 +89,7 @@ router.delete('/:id', function(req, res){
 // Article route
 router.get('/:id', function(req, res){
     Article.findById(req.params.id, function(err, article){
-        res.render('article', {
+        res.render('entry', {
             article:article
         });
     });

@@ -9,6 +9,7 @@
   "author": "Deon Butler",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.0",
     "connect-flash": "^0.1.1",
     "express": "^4.17.3",
@@ -16,6 +17,8 @@
     "express-session": "^1.17.2",
     "express-validator": "^6.14.0",
     "mongoose": "^6.3.0",
+    "passport": "^0.5.2",
+    "passport-local": "^1.0.0",
     "pug": "^3.0.2"
   }
 }

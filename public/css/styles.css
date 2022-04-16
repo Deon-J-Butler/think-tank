@@ -1,3 +1,15 @@
 nav {
     margin-bottom: 1em;
 }
+
+h1 {
+    text-decoration: underline;
+}
+
+a {
+    font-size: large;
+}
+
+a.btn.btn-secondary {
+    margin-right: 1em;
+}
