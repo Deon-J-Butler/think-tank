@@ -3,7 +3,6 @@
   <head>
     <title>Demo-Express</title>
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css">
-    <link rel="stylesheet" href="/css/styles.css">
   </head>
   <body>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
@@ -24,7 +23,7 @@
     </nav>
     <div class="container">
       <h1></h1>
-      <form method="POST" action="/article/add">
+      <form method="POST" action="/article/edit/undefined">
         <div id="form-title">
           <label>Title:</label>
           <input class="form-control" name="title" type="text">
@@ -35,7 +34,7 @@
         </div>
         <div id="form-body">
           <label>Body:</label>
-          <textarea class="form-control" name="body"></textarea><br>
+          <textarea class="form-control" name="body"></textarea>
         </div>
         <input class="btn btn-primary" type="submit" value="Submit">
       </form><br>
@@ -46,6 +45,5 @@
     </div>
     <script src="/bower_components/jquery/dist/jquery.js"></script>
     <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="/js/main.js"></script>
   </body>
 </html>
