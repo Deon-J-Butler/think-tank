@@ -1,7 +1,8 @@
 const express = require('express');
-const Article = require("../models/article");
-const {check, validationResult} = require("express-validator");
+const Article = require('../models/article');
+const {check, validationResult} = require('express-validator');
 const router = express.Router();
+const User = require('../models/user')
 
 
 
@@ -15,7 +16,7 @@ router.get('/add', function(req, res){
 // Add article route (POST)
 router.post('/add', [
     check('title', 'Title must not be empty').notEmpty(),
-    check('author', 'Author must not be empty').notEmpty(),
+    //check('author', 'Author must not be empty').notEmpty(),
     check('body', 'Body must not be empty').notEmpty(),
 ], (req, res) => {
 
@@ -58,7 +59,7 @@ router.get('/edit/:id', function(req, res){
 router.post('/edit/:id', function(req, res){
     let article = {};
     article.title = req.body.title;
-    article.author = req.body.author;
+    article.author = req.user._id;
     article.body = req.body.body;
 
     let query = {_id:req.params.id}
@@ -87,10 +88,13 @@ router.delete('/:id', function(req, res){
 });
 
 // Article route
-router.get('/:id', function(req, res){
-    Article.findById(req.params.id, function(err, article){
-        res.render('entry', {
-            article:article
+router.get('/:id', function(req, res) {
+    Article.findById(req.params.id, function (err, article) {
+        User.findById(article.author, function (err, user) {
+            res.render('entry', {
+                article: article,
+                author: user.name
+            });
         });
     });
 });

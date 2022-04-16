@@ -5,8 +5,10 @@ const bodyParser = require('body-parser')
 const session = require('express-session')
 const { check, validationResult } = require('express-validator');
 const flash = require('connect-flash')
+const passport = require('passport');
+const config = require('./config/database');
 
-mongoose.connect('mongodb://127.0.0.1/demo-express', function(err){
+mongoose.connect(config.database, function(err){
     if (err) {
         console.log('Unable to connect to server. Please check server connection. Error:', err);
     } else {
@@ -51,7 +53,16 @@ app.use(function (req, res, next) {
     next();
 });
 
+// Passport config
+require('./config/passport')(passport);
 
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.get('*', function(req, res, next){
+    res.locals.user = req.user || null;
+    next();
+})
 
 //--------------------------------------------------------Routes--------------------------------------------------------
 
