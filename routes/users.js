@@ -9,29 +9,30 @@ let User = require("../models/user");
 
 // Register form (GET)
 router.get('/register', function (req, res) {
-    res.render('register');
+    res.render('register', {
+        title: 'Register'
+    });
 });
 
 // Process registration (POST)
-router.post('/register',
-    async (req, res, next) => {
+router.post('/register', [
+        check('name', 'Name is required').notEmpty(),
+        check('email', 'Email is required').notEmpty(),
+        check('email', 'Email format').isEmail(),
+        check('username', 'Username is required').notEmpty(),
+        check('password', 'Password is required').notEmpty(),
+        check('password2', 'Passwords do not match'),
+    ], (req, res) => {
 
-        const name = req.body.name;
+        /*const name = req.body.name;
         const email = req.body.email;
         const username = req.body.username;
         const password = req.body.password;
-        const password2 = req.body.password2;
-
-        await check('name', 'Name is required').notEmpty().run(req);
-        await check('email', 'Email is required').notEmpty().run(req);
-        await check('email', 'Email format').isEmail().run(req);
-        await check('username', 'Username is required').notEmpty().run(req);
-        await check('password', 'Password is required').notEmpty().run(req);
-        await check('password', 'Passwords do not match').equals(req.body.password);
+        const password2 = req.body.password2;*/
 
         // Get errors
-        const errors = validationResult(req);
-        if (!errors) {
+        let errors = validationResult(req);
+        if (!errors.isEmpty()) {
             res.render('register', {
                 title: 'Register',
                 errors: errors.errors
@@ -52,9 +53,8 @@ router.post('/register',
                     newUser.save(function (err) {
                         if (err) {
                             console.log(err);
-                            return;
                         } else {
-                            req.flash('success', 'Your account is activated!\nYou can now login.');
+                            req.flash('success', 'Your account is activated! You can now login.');
                             res.redirect('/users/login');
                         }
 
