@@ -57,7 +57,7 @@ app.use(function (req, res, next) {
 require('./config/passport')(passport);
 
 app.use(passport.initialize());
-app.use(passport.session());
+app.use(passport.session(undefined));
 
 app.get('*', function(req, res, next){
     res.locals.user = req.user || null;
