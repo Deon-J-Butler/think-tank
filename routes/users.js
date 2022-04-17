@@ -6,6 +6,7 @@ const passport = require('passport')
 
 // Bring in user model
 let User = require("../models/user");
+const {isStrongPassword} = require("validator");
 
 // Register form (GET)
 router.get('/register', function (req, res) {
@@ -18,17 +19,10 @@ router.get('/register', function (req, res) {
 router.post('/register', [
         check('name', 'Name is required').notEmpty(),
         check('email', 'Email is required').notEmpty(),
-        check('email', 'Email format').isEmail(),
+        check('email', 'Email was not formatted correctly').isEmail(),
         check('username', 'Username is required').notEmpty(),
         check('password', 'Password is required').notEmpty(),
-        check('password2', 'Passwords do not match'),
     ], (req, res) => {
-
-        /*const name = req.body.name;
-        const email = req.body.email;
-        const username = req.body.username;
-        const password = req.body.password;
-        const password2 = req.body.password2;*/
 
         // Get errors
         let errors = validationResult(req);
@@ -54,7 +48,9 @@ router.post('/register', [
                         if (err) {
                             console.log(err);
                         } else {
-                            req.flash('success', 'Your account is activated! You can now login.');
+                            req.flash('success', 'Your account is activated! Make sure to store your password ' +
+                                'somewhere secure.');
+                            req.flash('success', 'You can now login.')
                             res.redirect('/users/login');
                         }
 
