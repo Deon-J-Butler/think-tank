@@ -22,7 +22,7 @@ mongoose.connect(config.database, function(err){
 const app = express();
 
 // Bring in models
-let Article = require('./models/article');
+let Thought = require('./models/thought');
 
 // Load view engine
 app.set('views', path.join(__dirname, 'views'));
@@ -68,21 +68,21 @@ app.get('*', function(req, res, next){
 
 // Home route
 app.get('/', function(req, res){
-    Article.find({}, function (err, articles){
+    Thought.find({}, function (err, thoughts){
         if (err){
             console.log(err);
         } else {
             res.render('index', {
-                title: 'Articles',
-                articles: articles
+                title: 'Thoughts',
+                thoughts: thoughts
             });
         }
     });
 });
 
 // Route files
-let articles = require('./routes/articles');
-app.use('/articles', articles);
+let thoughts = require('./routes/thoughts');
+app.use('/thoughts', thoughts);
 let users = require('./routes/users');
 app.use('/users', users);
 

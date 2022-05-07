@@ -1,7 +1,7 @@
 doctype html
 html
     head
-        title Demo-Express
+        title ThinkTank
         link(rel='stylesheet' href='/bower_components/bootstrap/dist/css/bootstrap.css')
         link(rel='stylesheet' href='/css/styles.css')
     body
@@ -13,14 +13,14 @@ html
                         span.icon-bar
                         span.icon-bar
                         span.icon-bar
-                    a.navbar-brand(href='/') Demo-Express
+                    a.navbar-brand(href='/') ThinkTank
                 #navbarCollapse.collapse.navbar-collapse
                     ul.navbar-nav.me-auto.mb-2.mb-md-0
                         li.nav-item
                             a.nav-link(href='/') Home
                         if user
                             li.nav-item
-                                a.nav-link(href='/articles/add') Add Article
+                                a.nav-link(href='/thoughts/add') Add Thought
                     ul.nav.nav-navbar.navbar-right
                         if user
                             li.nav-item

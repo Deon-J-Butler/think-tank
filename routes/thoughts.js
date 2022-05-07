@@ -1,19 +1,19 @@
 const express = require('express');
-const Article = require('../models/article');
+const Thought = require('../models/thought');
 const {check, validationResult} = require('express-validator');
 const router = express.Router();
 const User = require('../models/user')
 
 
 
-// Add article route (GET)
+// Add thought route (GET)
 router.get('/add', ensureAuthenticated, function(req, res){
-    res.render('add_article', {
-        title: 'Add Article'
+    res.render('add_thought', {
+        title: 'Add Thought'
     });
 });
 
-// Add article route (POST)
+// Add thought route (POST)
 router.post('/add', [
     check('title', 'Title must not be empty').notEmpty(),
     check('body', 'Body must not be empty').notEmpty(),
@@ -22,21 +22,21 @@ router.post('/add', [
     //Get errors
     let errors = validationResult(req);
     if(!errors.isEmpty()) {
-        res.render('add_article', {
-            title: 'Add Article',
+        res.render('add_thought', {
+            title: 'Add Thought',
             errors: errors.errors
         });
     } else {
-        let article = new Article();
-        article.title = req.body.title;
-        article.author = req.user._id;
-        article.body = req.body.body;
+        let thought = new Thought();
+        thought.title = req.body.title;
+        thought.author = req.user._id;
+        thought.body = req.body.body;
 
-        article.save((err) => {
+        thought.save((err) => {
             if(err) {
                 console.log(err);
             } else {
-                req.flash('success', 'Article Added');
+                req.flash('success', 'Entry Added');
                 res.redirect('/');
             }
         });
@@ -46,54 +46,54 @@ router.post('/add', [
 
 // Edit form (GET)
 router.get('/edit/:id', ensureAuthenticated, function(req, res){
-    Article.findById(req.params.id, function(err, article){
-        if (req.user.id !== article.author) {
+    Thought.findById(req.params.id, function(err, thought){
+        if (req.user.id !== thought.author) {
             req.flash('danger', 'Not Authorized');
             res.redirect('/');
         } else {
-            res.render('edit_article', {
-                title: 'Edit Article',
-                article: article
+            res.render('edit_thought', {
+                title: 'Edit Thought',
+                thought: thought
             });
         }
     });
 });
 
-// Update article (POST)
+// Update thought (POST)
 router.post('/edit/:id', function(req, res){
-    let article = {};
-    article.title = req.body.title;
-    article.author = req.user._id;
-    article.body = req.body.body;
+    let thought = {};
+    thought.title = req.body.title;
+    thought.author = req.user._id;
+    thought.body = req.body.body;
 
     let query = {_id:req.params.id}
 
-    Article.updateOne(query, article, function(err){
+    Thought.updateOne(query, thought, function(err){
         if(err){
             console.log('There was an error', err);
         } else {
-            req.flash('success', 'Article Updated');
+            req.flash('success', 'Entry Updated');
             res.redirect('/');
         }
     });
 });
 
-// Delete article ($.ajax)
+// Delete thought ($.ajax)
 router.delete('/:id', function(req, res){
     if (!req.user._id) {
         res.status(500).send();
     } else {
         let query = {_id: req.params.id}
 
-        Article.findByIdAndDelete(req.params.id, function (err, article) {
+        Thought.findByIdAndDelete(req.params.id, function (err, thought) {
             if (!req.user._id) {
                 res.status(500).send();
             } else {
-                Article.deleteOne(query, function (err) {
+                Thought.deleteOne(query, function (err) {
                     if (err) {
                         console.log(err);
                     }
-                    req.flash('danger', 'Article Deleted');
+                    req.flash('danger', 'Entry Deleted');
                     res.send('Success');
                 });
             }
@@ -101,12 +101,12 @@ router.delete('/:id', function(req, res){
     }
 });
 
-// Article route
+// Thought route
 router.get('/:id', function (req, res) {
-    Article.findById(req.params.id, function (err, article) {
-        User.findById(article.author, function (err, user) {
+    Thought.findById(req.params.id, function (err, thought) {
+        User.findById(thought.author, function (err, user) {
             res.render('entry', {
-                article: article,
+                thought: thought,
                 author: user.name
             });
         });

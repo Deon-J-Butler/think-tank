@@ -125,7 +125,7 @@ body {
    */
   .bd-cheatsheet,
   .bd-cheatsheet section,
-  .bd-cheatsheet article {
+  .bd-cheatsheet thought {
     display: inherit; /* 1 */
     gap: inherit; /* 1 */
     grid-template-columns: 1fr 4fr;
@@ -157,7 +157,7 @@ body {
     background-image: linear-gradient(to bottom, rgba(255, 255, 255, 1) calc(100% - 3rem), rgba(255, 255, 255, .01));
   }
 
-  .bd-cheatsheet article,
+  .bd-cheatsheet thought,
   .bd-cheatsheet .bd-heading {
     top: 8rem;
     scroll-margin-top: 8rem;

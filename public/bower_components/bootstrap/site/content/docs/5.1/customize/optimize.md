@@ -60,12 +60,12 @@ Bootstrap depends on Autoprefixer to automatically add browser prefixes to certa
 
 _Help wanted with this section, please consider opening a PR. Thanks!_
 
-While we don't have a prebuilt example for using [PurgeCSS](https://github.com/FullHuman/purgecss) with Bootstrap, there are some helpful articles and walkthroughs that the community has written. Here are some options:
+While we don't have a prebuilt example for using [PurgeCSS](https://github.com/FullHuman/purgecss) with Bootstrap, there are some helpful thoughts and walkthroughs that the community has written. Here are some options:
 
 - <https://medium.com/dwarves-foundation/remove-unused-css-styles-from-bootstrap-using-purgecss-88395a2c5772>
 - <https://lukelowrey.com/automatically-removeunused-css-from-bootstrap-or-other-frameworks/>
 
-Lastly, this [CSS Tricks article on unused CSS](https://css-tricks.com/how-do-you-remove-unused-css-from-a-site/) shows how to use PurgeCSS and other similar tools.
+Lastly, this [CSS Tricks thought on unused CSS](https://css-tricks.com/how-do-you-remove-unused-css-from-a-site/) shows how to use PurgeCSS and other similar tools.
 
 ## Minify and gzip
 
@@ -81,7 +81,7 @@ You can improve FCP by deferring non-critical JavaScript or CSS. What does that 
 
 This ensures that the less important resources are loaded later and not blocking the first paint. On the other hand, critical resources can be included as inline scripts or styles.
 
-If you want to learn more about this, there are already a lot of great articles about it:
+If you want to learn more about this, there are already a lot of great thoughts about it:
 
 - <https://web.dev/render-blocking-resources/>
 - <https://web.dev/defer-non-critical-css/>
