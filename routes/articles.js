@@ -47,14 +47,15 @@ router.post('/add', [
 // Edit form (GET)
 router.get('/edit/:id', ensureAuthenticated, function(req, res){
     Article.findById(req.params.id, function(err, article){
-        if (article.author !== req.user._id) {
+        if (req.user.id !== article.author) {
             req.flash('danger', 'Not Authorized');
             res.redirect('/');
+        } else {
+            res.render('edit_article', {
+                title: 'Edit Article',
+                article: article
+            });
         }
-        res.render('edit_article', {
-            title: 'Edit Article',
-            article:article
-        });
     });
 });
 
@@ -81,22 +82,23 @@ router.post('/edit/:id', function(req, res){
 router.delete('/:id', function(req, res){
     if (!req.user._id) {
         res.status(500).send();
-    }
-    let query = {_id:req.params.id}
+    } else {
+        let query = {_id: req.params.id}
 
-    Article.findById(req.params.id, function(err, article) {
-        if (article.author !== req.user._id) {
-            res.status(500).send();
-        } else {
-            Article.deleteOne(query, function (err){
-                if(err){
-                    console.log(err);
-                }
-                req.flash('danger', 'Article Deleted');
-                res.send('Success');
-            });
-        }
-    });
+        Article.findByIdAndDelete(req.params.id, function (err, article) {
+            if (!req.user._id) {
+                res.status(500).send();
+            } else {
+                Article.deleteOne(query, function (err) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    req.flash('danger', 'Article Deleted');
+                    res.send('Success');
+                });
+            }
+        });
+    }
 });
 
 // Article route
